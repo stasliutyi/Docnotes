@@ -1,0 +1,74 @@
+{
+  "clients": [
+    {
+      "id": "1",
+      "name": "Ivan Petrenko",
+      "age": 32,
+      "phone": "0998765454",
+      "issue": "anxiety",
+      "notes": [
+        {
+          "id": "DwwOkXKxrS8VTmmucw-jd",
+          "text": "Hello!\n\nYou",
+          "date": "8/21/2025"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Olena Koval",
+      "age": 28,
+      "phone": "0998765454",
+      "issue": "anxiety",
+      "notes": [
+        {
+          "id": "NiCPLYe6i-iT6Qy0Ll0lT",
+          "text": "Hello!",
+          "date": "8/21/2025"
+        }
+      ]
+    },
+    {
+      "id": "6yMFG9GGJukmVuNCRyeUS",
+      "name": "Maryna Avramenko",
+      "age": 25,
+      "phone": "0998281831",
+      "issue": "anxiety",
+      "notes": [
+        {
+          "id": "Hs0GhR0py0sZdzQZniFwS",
+          "text": "So",
+          "date": "8/21/2025"
+        }
+      ]
+    },
+    {
+      "id": "HGKDCZHHeCvqUM0c67r4E",
+      "name": "Victoria Vasyl",
+      "age": 25,
+      "phone": "50493775",
+      "issue": "anxiety",
+      "notes": [
+        {
+          "id": "AIK-Qj2Dp7FDvQ0krIjpi",
+          "text": "Hello!",
+          "date": "8/20/2025"
+        }
+      ]
+    },
+    {
+      "id": "FXu8lg8BiYwxOfvwtJS6t",
+      "name": "Max",
+      "age": 40,
+      "phone": "43926593",
+      "issue": "anxiety",
+      "notes": [
+        {
+          "id": "QwPpaXSZdRa_Q8wUeHPl_",
+          "text": "Hello, hello, hello.",
+          "date": "8/21/2025"
+        }
+      ]
+    }
+  ]
+}
