@@ -8,7 +8,7 @@ const app = express();
 
 // CORS для локалу та фронтенду
 app.use(cors({
-  origin: ["https://docnotes-1.onrender.com", "http://localhost:5173"]
+  origin: "*"
 }));
 
 // Перевірка ключа
