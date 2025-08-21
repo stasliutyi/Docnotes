@@ -6,9 +6,11 @@ import OpenAI from "openai";
 import cors from "cors";
 
 const app = express();
+app.use(cors());
 app.use(cors({
-  origin: "https://docnotes-frontend.onrender.com"
+  origin: ["https://docnotes-frontend.onrender.com", "http://localhost:5173"]
 }));
+
 
 const storage = multer.diskStorage({
   destination: "uploads/",
@@ -40,4 +42,7 @@ app.post("/transcribe", upload.single("file"), async (req, res) => {
 });
 
 
-app.listen(3000, () => console.log("Listening on http://localhost:3000"));
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
+
