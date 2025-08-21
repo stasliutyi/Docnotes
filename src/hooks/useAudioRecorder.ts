@@ -1,5 +1,7 @@
 import { useState, useRef } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const useAudioRecorder = () => {
   const [recording, setRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
@@ -40,7 +42,7 @@ export const transcribeAudio = async (audioBlob: Blob) => {
   const formData = new FormData();
   formData.append("file", audioBlob, "audio.webm");
 
-  const response = await fetch("http://localhost:3000/transcribe", {
+  const response = await fetch(`${API_URL}/transcribe`, {
     method: "POST",
     body: formData,
   });

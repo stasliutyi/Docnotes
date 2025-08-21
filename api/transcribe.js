@@ -6,7 +6,9 @@ import OpenAI from "openai";
 import cors from "cors";
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "https://docnotes-frontend.onrender.com"
+}));
 
 const storage = multer.diskStorage({
   destination: "uploads/",
