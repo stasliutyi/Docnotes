@@ -4,14 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-     "dev": "vite",
+  "dev": "vite",
   "build": "vite build",
   "preview": "vite preview",
-    "server": "node ./api/transcribe.js",
-    "db": "npx json-server --watch db.json --port 3001",
-    "start": "vite preview",
-    "app": "concurrently \"npm run start\" \"npm run server\" \"npm run db\""
-  },
+  "server": "node ./api/transcribe.js",
+  "db": "npx json-server --watch db.json --port 3001",
+  "start": "node index.js",
+  "app": "concurrently \"npm run start\" \"npm run server\" \"npm run db\""
+},
   "dependencies": {
     "@vercel/node": "^5.3.13",
     "axios": "^1.11.0",
