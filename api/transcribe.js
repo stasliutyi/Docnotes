@@ -39,10 +39,11 @@ app.post("/transcribe", upload.single("file"), async (req, res) => {
     const blob = new Blob([req.file.buffer], { type: req.file.mimetype });
 
     const resp = await openai.audio.transcriptions.create({
-      model: "whisper-1",
-      file: blob,
-      filename: req.file.originalname,
-    });
+  model: "whisper-1",
+  file: req.file.buffer, // просто передаємо Buffer
+  filename: req.file.originalname,
+});
+
 
     res.json({ text: resp.text ?? "" });
   } catch (err) {
