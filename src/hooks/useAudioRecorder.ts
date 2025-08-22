@@ -38,14 +38,20 @@ export const useAudioRecorder = () => {
 
 export const transcribeAudio = async (audioBlob: Blob) => {
   const formData = new FormData();
-  formData.append("file", audioBlob, "audio.webm");
+
+  const safeBlob = new Blob([audioBlob], { type: "application/octet-stream" });
+
+  formData.append("file", safeBlob, "audio.webm");
 
   const response = await fetch("https://docnotes-1.onrender.com/transcribe", {
     method: "POST",
     body: formData,
   });
 
-  if (!response.ok) throw new Error("Transcription failed");
+  if (!response.ok) {
+    const err = await response.text();
+    throw new Error("Transcription failed: " + err);
+  }
 
   const data = await response.json();
   return data.text;

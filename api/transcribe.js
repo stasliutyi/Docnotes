@@ -17,6 +17,9 @@ if (!process.env.OPENAI_API_KEY) {
   process.exit(1);
 }
 
+console.log("OPENAI_API_KEY:", process.env.OPENAI_API_KEY ? "OK" : "MISSING");
+
+
 // Створюємо екземпляр OpenAI
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
