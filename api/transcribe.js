@@ -31,20 +31,22 @@ const upload = multer({
   limits: { fileSize: 25 * 1024 * 1024 },
 });
 
-// Роут для транскрипції
 app.post("/transcribe", upload.single("file"), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: "No file uploaded" });
 
+    // Перетворюємо Buffer у Blob
+    const blob = new Blob([req.file.buffer], { type: req.file.mimetype });
+
     const resp = await openai.audio.transcriptions.create({
       model: "whisper-1",
-      file: req.file.buffer,
+      file: blob,
       filename: req.file.originalname,
     });
 
     res.json({ text: resp.text ?? "" });
   } catch (err) {
-    console.error(err);
+    console.error("Transcription error:", err);
     res.status(500).json({ error: err?.message || "Transcription failed" });
   }
 });
