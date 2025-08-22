@@ -1,56 +1,41 @@
 import "dotenv/config";
 import express from "express";
 import multer from "multer";
-import cors from "cors";
+import fs from "fs";
 import OpenAI from "openai";
+import cors from "cors";
 
 const app = express();
+app.use(cors());
 
-// CORS для локалу та фронтенду
-app.use(cors({
-  origin: "*"
-}));
-
-// Перевірка ключа
-if (!process.env.OPENAI_API_KEY) {
-  console.error("OPENAI_API_KEY не знайдено! Додай його в Environment на Render.");
-  process.exit(1);
-}
-
-console.log("OPENAI_API_KEY:", process.env.OPENAI_API_KEY ? "OK" : "MISSING");
-
-
-// Створюємо екземпляр OpenAI
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+const storage = multer.diskStorage({
+  destination: "uploads/",
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
 });
-
-// Multer
 const upload = multer({
-  storage: multer.memoryStorage(),
-  limits: { fileSize: 25 * 1024 * 1024 },
+  storage,
+  limits: { fileSize: 25 * 1024 * 1024 }, // ~25MB
 });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 app.post("/transcribe", upload.single("file"), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: "No file uploaded" });
 
-    // Перетворюємо Buffer у Blob
-    const blob = new Blob([req.file.buffer], { type: req.file.mimetype });
-
+    const stream = fs.createReadStream(req.file.path);
     const resp = await openai.audio.transcriptions.create({
-  model: "whisper-1",
-  file: req.file.buffer, // просто передаємо Buffer
-  filename: req.file.originalname,
-});
+      model: "whisper-1",
+      file: stream,
+    });
 
-
+    fs.unlink(req.file.path, () => {});
     res.json({ text: resp.text ?? "" });
   } catch (err) {
-    console.error("Transcription error:", err);
+    console.error(err);
     res.status(500).json({ error: err?.message || "Transcription failed" });
   }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+app.listen(3000, () => console.log("Listening on http://localhost:3000"));

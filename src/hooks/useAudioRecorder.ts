@@ -40,7 +40,7 @@ export const transcribeAudio = async (audioBlob: Blob) => {
   const formData = new FormData();
   formData.append("file", audioBlob, "audio.webm");
 
-  const response = await fetch("https://docnotes-1.onrender.com/transcribe", {
+  const response = await fetch("http://localhost:3000/transcribe", {
     method: "POST",
     body: formData,
   });
